@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class TestData extends StatefulWidget {
   const TestData({Key? key}) : super(key: key);
@@ -23,6 +24,25 @@ class _TestDataState extends State<TestData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: (collection.isNotEmpty)
+          ? Stack(
+              children: [
+                Container(
+                  width: 60,
+                  height: 60,
+                  margin: const EdgeInsets.only(bottom: 30),
+                  decoration: const BoxDecoration(
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8),
+                    ),
+                  ),
+                  child: const Center(child: Text("Send")),
+                ),
+              ],
+            ).animate().fadeIn().scale(duration: 180.ms, curve: Curves.linear)
+          : const SizedBox.shrink(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(14.0),
@@ -32,8 +52,10 @@ class _TestDataState extends State<TestData> {
               return Container(
                 padding: const EdgeInsets.all(8),
                 margin: const EdgeInsets.all(6),
-                decoration:  BoxDecoration(
-                  color: collection.contains(holder[index]) ? Colors.green : Colors.grey,
+                decoration: BoxDecoration(
+                  color: collection.contains(holder[index])
+                      ? Colors.green
+                      : Colors.grey,
                 ),
                 child: InkWell(
                   onTap: () {
